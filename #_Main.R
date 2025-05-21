@@ -30,9 +30,9 @@ colnames(seurat_obj2@meta.data)
 # 可以檢查常見的 QC 指標 (nFeature_RNA、nCount_RNA、percent.mt 等)
 # 如果物件中尚未計算 percent.mt，可在讀檔後自行計算
 # 這裡示範直接繪製小提琴圖比較分佈，若物件中有相同的欄位名
-VlnPlot(seurat_obj1, features = c("nFeature_RNA", "nCount_RNA"), ncol = 2) +
+VlnPlot(seurat_obj1, features = c("nFeature_RNA", "nCount_RNA"), ncol = 2, group.by = "Cell_Type_Compare") +
   ggtitle("seurat_obj1 QC")
-VlnPlot(seurat_obj2, features = c("nFeature_RNA", "nCount_RNA"), ncol = 2) +
+VlnPlot(seurat_obj2, features = c("nFeature_RNA", "nCount_RNA"), ncol = 2, group.by = "Cell_Type_Compare") +
   ggtitle("seurat_obj2 QC")
 
 
