@@ -39,21 +39,21 @@ VlnPlot(seurat_obj2, features = c("nFeature_RNA", "nCount_RNA"), ncol = 2) +
 # 3. 比較細胞標註（Cell Type）相關資訊 --------------------------------------
 
 # 若兩個物件都有類似的欄位存放 Cell Type，例如：
-# seurat_obj1$CellType_SeuratClusters_ChatGPTDR
-# seurat_obj2$CellType_SeuratClusters_ChatGPTDR
+# seurat_obj1$Cell_Type_Compare
+# seurat_obj2$Cell_Type_Compare
 # 可使用 unique() 查看有哪些類型：
 
-unique(seurat_obj1$CellType_SeuratClusters_ChatGPTDR)
-unique(seurat_obj2$CellType_SeuratClusters_ChatGPTDR)
+unique(seurat_obj1$Cell_Type_Compare)
+unique(seurat_obj2$Cell_Type_Compare)
 
 # 若欄位名稱不同，請替換成對應的 metadata 欄位
 
 # 也可以加上表格統計 (dplyr::count) 看每種 Cell Type 有多少細胞
 table1 <- seurat_obj1@meta.data %>%
-  count(CellType_SeuratClusters_ChatGPTDR, name = "CellCount")
+  count(Cell_Type_Compare, name = "CellCount")
 
 table2 <- seurat_obj2@meta.data %>%
-  count(CellType_SeuratClusters_ChatGPTDR, name = "CellCount")
+  count(Cell_Type_Compare, name = "CellCount")
 
 print(table1)
 print(table2)
@@ -63,10 +63,10 @@ print(table2)
 
 # (1) UMAP / t-SNE 可視化
 # 如果物件中已經計算好 UMAP/t-SNE，可直接繪製：
-DimPlot(seurat_obj1, reduction = "umap", group.by = "CellType_SeuratClusters_ChatGPTDR") +
+DimPlot(seurat_obj1, reduction = "umap", group.by = "Cell_Type_Compare") +
   ggtitle("UMAP - seurat_obj1")
 
-DimPlot(seurat_obj2, reduction = "umap", group.by = "CellType_SeuratClusters_ChatGPTDR") +
+DimPlot(seurat_obj2, reduction = "umap", group.by = "Cell_Type_Compare") +
   ggtitle("UMAP - seurat_obj2")
 
 # (2) Marker 基因的表現比較
