@@ -7,6 +7,8 @@ library(ggplot2)
 
 # 路徑一 (2025051906YDG.rds)
 seurat_obj1 <- readRDS("C:/Charlene/Code_GitHub_BioInport2025/KGD_CellTypeAnnot_Skin/Export_2025051906YDG_Keloid_Charlene_2Step_RefComb_IntHarmony/2025051906YDG.rds")
+# seurat_obj1 <- readRDS("C:/Charlene/Code_GitHub_BioInport2025/KGD_Lab_Code_scRNA-seq_Ch/Export_2025051707YXL_Keloid_For_Reproduction/2025051707YXL_seuratObject_Sample_seurat.rds")
+
 
 # 路徑二 (TNtype.combined-37.rds)
 seurat_obj2 <- readRDS("C:/Charlene/Dataset_KGD_Lab/#_Seurat_Object/Keloid_Jojie/TNtype.combined-37.rds")
