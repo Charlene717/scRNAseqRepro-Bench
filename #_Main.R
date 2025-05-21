@@ -20,6 +20,8 @@ seurat_obj2$Cell_Type_Compare <- Idents(seurat_obj2)
 # 下面以 case_when() 為例，示範如何將多個子群合併為更大的類別。
 # 請根據實際資料的子群名稱進行對應調整。
 
+#-[]規則須修正
+
 seurat_obj1$Cell_Type_Compare_Merged <- dplyr::case_when(
   seurat_obj1$Cell_Type_Compare %in% c("Pro-inflammatory fibroblast_1", 
                                        "Pro-inflammatory fibroblast_2") ~ "Pro-inflammatory fibroblast",
