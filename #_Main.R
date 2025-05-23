@@ -16,6 +16,9 @@ if(!require('Seurat')) {install.packages('Seurat'); library(Seurat)}
 if(!require('dplyr')) {install.packages('dplyr'); library(dplyr)}
 if(!require('ggplot2')) {install.packages('ggplot2'); library(ggplot2)}
 
+#### Set parameter ####
+Name_Seurat_obj1 <- "Keloid_Charlene"
+Name_Seurat_obj2 <- "Keloid_Jojie"
 
 #### Load Data ####
 # 路徑一 (2025051906YDG.rds)
@@ -127,14 +130,11 @@ plot_cell_counts <- function(table1, table2,
           axis.text.y = element_text(size = 9))
 }
 
-# ── 範例呼叫 ───────────────────────────────────────────────
-# 假設 table1_merged 來自 seurat_obj1，table2_merged 來自 seurat_obj2
 plot_cell_counts(table1_merged, table2_merged,
-                 name1 = "Project A",      # 自訂顯示名稱
-                 name2 = "Project B",
-                 title = "Merged cell-type counts: Project A vs Project B")
-
-
+                 name1 = Name_Seurat_obj1,      # 自訂顯示名稱
+                 name2 = Name_Seurat_obj2,
+                 title = paste0("cell-type counts: ", Name_Seurat_obj1, "vs" ,Name_Seurat_obj2) 
+)
 
 
 ################################################################################
