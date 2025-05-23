@@ -120,10 +120,11 @@ venn_plots <- lapply(common_ct, function(ct){
 })
 
 # ── 4A. 直接顯示 (RStudio/Plots) ───────────────────────
-gridExtra::grid.arrange(grobs = venn_plots, ncol = 2)
+gridExtra::grid.arrange(grobs = venn_plots, ncol = 5)
 
-# # ── 4B. 或存成 PDF 檔 ─────────────────────────────────
-# pdf("Venn_marker_overlap.pdf", width = 8, height = 10)
-# gridExtra::grid.arrange(grobs = venn_plots, ncol = 2)
-# dev.off()
+# ── 4B. 或存成 PDF 檔 ─────────────────────────────────
+pdf("Venn_marker_overlap.pdf", width = 17, height = 10)
+gridExtra::grid.arrange(grobs = venn_plots, ncol = 5)
+dev.off()
+
 
