@@ -1,6 +1,7 @@
 # -[T]百分比
 # -[]保存DEG結果
 # -[]儲存交集、差集結果
+# -[]TopN gene 模式
 # -[]Object名稱設定
 
 # -[]Fig legend
