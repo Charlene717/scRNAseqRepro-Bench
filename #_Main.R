@@ -22,34 +22,52 @@ seurat_obj2$Cell_Type_Compare <- Idents(seurat_obj2)
 
 
 #### Rename cell type ####
-# 2. 建立合併子群的規則 ------------------------------------------------------
-# 下面以 case_when() 為例，示範如何將多個子群合併為更大的類別。
-# 請根據實際資料的子群名稱進行對應調整。
+# # 2. 建立合併子群的規則 ------------------------------------------------------
+# # 下面以 case_when() 為例，示範如何將多個子群合併為更大的類別。
+# # 請根據實際資料的子群名稱進行對應調整。
+# 
+# #-[]規則須修正
+# 
+# seurat_obj1$Cell_Type_Compare_Merged <- dplyr::case_when(
+#   seurat_obj1$Cell_Type_Compare %in% c("Pro-inflammatory fibroblast_1", 
+#                                        "Pro-inflammatory fibroblast_2") ~ "Pro-inflammatory fibroblast",
+#   seurat_obj1$Cell_Type_Compare %in% c("Secretory reticular fibroblast_1",
+#                                        "Secretory reticular fibroblast_2") ~ "Secretory reticular fibroblast",
+#   seurat_obj1$Cell_Type_Compare %in% c("Fibroblasts_1", "Fibroblasts_2", "Fibroblasts_3", "Fibroblasts_4") ~ "Fibroblasts",
+#   seurat_obj1$Cell_Type_Compare %in% c("Spinous keratinocyte_1", "Spinous keratinocyte_2",
+#                                        "Spinous keratinocyte_3", "Spinous keratinocyte_4", "Spinous keratinocyte_5") ~ "Spinous keratinocyte",
+#   # 依你的需求持續擴充或修改... 
+#   TRUE ~ seurat_obj1$Cell_Type_Compare  # 若不在上述對應中，則保留原標註
+# )
+# 
+# # 對 seurat_obj2 做同樣的處理
+# seurat_obj2$Cell_Type_Compare_Merged <- dplyr::case_when(
+#   seurat_obj2$Cell_Type_Compare %in% c("Pro-inflammatory fibroblast_1", 
+#                                        "Pro-inflammatory fibroblast_2") ~ "Pro-inflammatory fibroblast",
+#   seurat_obj2$Cell_Type_Compare %in% c("Secretory reticular fibroblast_1",
+#                                        "Secretory reticular fibroblast_2") ~ "Secretory reticular fibroblast",
+#   # 依需求增加合併規則...
+#   TRUE ~ seurat_obj2$Cell_Type_Compare
+# )
 
-#-[]規則須修正
 
-seurat_obj1$Cell_Type_Compare_Merged <- dplyr::case_when(
-  seurat_obj1$Cell_Type_Compare %in% c("Pro-inflammatory fibroblast_1", 
-                                       "Pro-inflammatory fibroblast_2") ~ "Pro-inflammatory fibroblast",
-  seurat_obj1$Cell_Type_Compare %in% c("Secretory reticular fibroblast_1",
-                                       "Secretory reticular fibroblast_2") ~ "Secretory reticular fibroblast",
-  seurat_obj1$Cell_Type_Compare %in% c("Fibroblasts_1", "Fibroblasts_2", "Fibroblasts_3", "Fibroblasts_4") ~ "Fibroblasts",
-  seurat_obj1$Cell_Type_Compare %in% c("Spinous keratinocyte_1", "Spinous keratinocyte_2",
-                                       "Spinous keratinocyte_3", "Spinous keratinocyte_4", "Spinous keratinocyte_5") ~ "Spinous keratinocyte",
-  # 依你的需求持續擴充或修改... 
-  TRUE ~ seurat_obj1$Cell_Type_Compare  # 若不在上述對應中，則保留原標註
-)
 
-# 對 seurat_obj2 做同樣的處理
-seurat_obj2$Cell_Type_Compare_Merged <- dplyr::case_when(
-  seurat_obj2$Cell_Type_Compare %in% c("Pro-inflammatory fibroblast_1", 
-                                       "Pro-inflammatory fibroblast_2") ~ "Pro-inflammatory fibroblast",
-  seurat_obj2$Cell_Type_Compare %in% c("Secretory reticular fibroblast_1",
-                                       "Secretory reticular fibroblast_2") ~ "Secretory reticular fibroblast",
-  # 依需求增加合併規則...
-  TRUE ~ seurat_obj2$Cell_Type_Compare
-)
+# 請先載入所需套件
+library(stringr)
 
+# ---------- 1. 建立清理函式 ----------
+merge_cell_type <- function(vec){
+  vec |>
+    # 去掉尾端的「_ / - / 無」+ 數字，例如 _1、-02、3
+    str_remove("([_-]?\\d+)$") |>
+    str_trim() |>                 # 去除多餘空白
+    str_to_lower() |>             # 先全部變小寫
+    { str_replace(., "^([a-z])", toupper) }   # 再把第一個字母變大寫
+}
+
+# ---------- 2. 套用到 Seurat 物件 ----------
+seurat_obj1$Cell_Type_Compare_Merged <- merge_cell_type(seurat_obj1$Cell_Type_Compare)
+seurat_obj2$Cell_Type_Compare_Merged <- merge_cell_type(seurat_obj2$Cell_Type_Compare)
 
 #### Compare ####
 # 3. 檢視新的合併欄位 --------------------------------------------------------
