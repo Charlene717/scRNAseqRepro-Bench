@@ -5,6 +5,8 @@ if(!require('dplyr')) {install.packages('dplyr'); library(dplyr)}
 if(!require('ggplot2')) {install.packages('ggplot2'); library(ggplot2)}
 
 
+
+#### Load Data ####
 # 1. 讀取兩個 Seurat 物件 --------------------------------------------------
 
 # 路徑一 (2025051906YDG.rds)
@@ -18,6 +20,8 @@ seurat_obj2 <- readRDS("C:/Charlene/Dataset_KGD_Lab/#_Seurat_Object/Keloid_Jojie
 seurat_obj2$Cell_Type_KGD <- Idents(seurat_obj2)
 seurat_obj2$Cell_Type_Compare <- Idents(seurat_obj2)
 
+
+#### Rename cell type ####
 # 2. 建立合併子群的規則 ------------------------------------------------------
 # 下面以 case_when() 為例，示範如何將多個子群合併為更大的類別。
 # 請根據實際資料的子群名稱進行對應調整。
@@ -46,6 +50,8 @@ seurat_obj2$Cell_Type_Compare_Merged <- dplyr::case_when(
   TRUE ~ seurat_obj2$Cell_Type_Compare
 )
 
+
+#### Compare ####
 # 3. 檢視新的合併欄位 --------------------------------------------------------
 # 查看新的合併後子群分布
 unique(seurat_obj1$Cell_Type_Compare_Merged)
