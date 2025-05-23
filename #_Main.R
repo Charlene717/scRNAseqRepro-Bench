@@ -27,7 +27,8 @@ Name_Seurat_obj2 <- "Keloid_Jojie"
 
 # seurat_obj1 <- readRDS("C:/Charlene/Code_GitHub_BioInport2025/KGD_Lab_Code_scRNA-seq_Ch/Export_2025051707YXL_Keloid_For_Reproduction/2025051707YXL_seuratObject_Sample_seurat.rds")
 
-seurat_obj1 <- readRDS("C:/Charlene/Code_GitHub_BioInport2025/KGD_Lab_Code_scRNA-seq_Ch/Export_2025051707YXL_Keloid_For_Reproduction/2025051707YXL_CellTypeAnnot_20250523.rds")
+# seurat_obj1 <- readRDS("C:/Charlene/Code_GitHub_BioInport2025/KGD_Lab_Code_scRNA-seq_Ch/Export_2025051707YXL_Keloid_For_Reproduction/2025051707YXL_CellTypeAnnot_20250523.rds")
+seurat_obj1 <- readRDS("C:/Charlene/Code_GitHub_BioInport2025/KGD_Lab_Code_scRNA-seq_Ch/Export_2025051707YXL_Keloid_For_Reproduction/2025051707YXL_CellTypeAnnot_20250524.rds")
 seurat_obj1$Cell_Type_Compare <- seurat_obj1$BroadCellTypeAnnot_SeuratClusters
 
 # 路徑二 (TNtype.combined-37.rds)
