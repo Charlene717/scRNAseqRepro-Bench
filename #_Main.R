@@ -57,13 +57,14 @@ library(stringr)
 
 merge_cell_type <- function(vec){
   vec |>
-    str_remove("([_-]?\\d+)$") |>        # 1. 去掉尾端連接符＋數字
-    str_trim() |>                        # 2. 去空白
-    str_to_lower() |>                    # 3. 先全部轉成小寫
-    str_to_sentence() |>                 # 4. 首字母大寫
-    (\(x) ifelse(str_ends(x, regex("s$", ignore_case = TRUE)), 
-                 x, 
-                 paste0(x, "s")))()      # 5. 若結尾不是 s 就加 s
+    str_remove("([_-]?\\d+)$") |>              # 1. 去掉尾端連接符＋數字
+    str_trim() |>                              # 2. 去空白
+    str_to_lower() |>                          # 3. 全轉小寫
+    str_replace("([a-z])cells$", "\\1 cells") |># 4. 若結尾為 ...cells 且前面緊貼字母，補空格
+    str_to_sentence() |>                       # 5. 首字母大寫
+    (\(x) ifelse(str_ends(x, regex("s$", ignore_case = TRUE)),
+                 x,
+                 paste0(x, "s")))()            # 6. 若結尾不是 s 再補 s
 }
 
 
