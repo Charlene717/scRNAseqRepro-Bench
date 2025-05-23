@@ -36,6 +36,8 @@ seurat_obj2$Cell_Type_KGD <- Idents(seurat_obj2)
 seurat_obj2$Cell_Type_Compare <- Idents(seurat_obj2)
 
 
+seurat_obj2$skin_group <-  seurat_obj2$orig.ident1
+
 #### Rename cell type ####
 # 請先載入所需套件
 library(stringr)
