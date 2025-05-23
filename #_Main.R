@@ -69,6 +69,17 @@ seurat_obj1$Cell_Type_Compare_Merged <- std_kera_fibro(seurat_obj1$Cell_Type_Com
 seurat_obj2$Cell_Type_Compare_Merged <- std_kera_fibro(seurat_obj2$Cell_Type_Compare_Merged)
 
 
+# ── 專門改寫 ────────────────────
+library(stringr)
+seurat_obj1$Cell_Type_Compare_Merged <- seurat_obj1$Cell_Type_Compare_Merged |>
+  str_replace(regex("^Nk cells/t cells$", ignore_case = TRUE),
+              "NK cells/T cells")
+
+seurat_obj2$Cell_Type_Compare_Merged <- seurat_obj2$Cell_Type_Compare_Merged |>
+  str_replace(regex("^Tcell/nk cells$", ignore_case = TRUE),
+              "NK cells/T cells")
+
+
 #### Compare ####
 # 查看新的合併後子群分布
 unique(seurat_obj1$Cell_Type_Compare_Merged)
