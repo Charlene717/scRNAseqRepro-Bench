@@ -80,9 +80,51 @@ print(table2_merged)
 
 
 #### Visualization ####
+# 載入工具
+library(dplyr)
+library(tidyr)   # pivot_longer 用
+library(ggplot2)
+
+plot_df <- full_join(table1_merged, table2_merged,
+                     by = "Cell_Type_Compare_Merged",
+                     suffix = c("_obj1", "_obj2")) |>
+  replace_na(list(CellCount_obj1 = 0,
+                  CellCount_obj2 = 0)) |>
+  pivot_longer(cols = starts_with("CellCount"),
+               names_to  = "Object",
+               values_to = "CellCount") |>
+  mutate(Object = recode(Object,
+                         "CellCount_obj1" = "Seurat obj1",
+                         "CellCount_obj2" = "Seurat obj2"))
+
+# 依總細胞數排序
+plot_df <- plot_df |>
+  group_by(Cell_Type_Compare_Merged) |>
+  mutate(Total = sum(CellCount)) |>
+  ungroup() |>
+  arrange(desc(Total)) |>
+  mutate(Cell_Type_Compare_Merged =
+           factor(Cell_Type_Compare_Merged,
+                  levels = unique(Cell_Type_Compare_Merged)))
+
+# 畫分組條形圖
+ggplot(plot_df,
+       aes(x = Cell_Type_Compare_Merged,
+           y = CellCount,
+           fill = Object)) +
+  geom_col(position = "dodge") +
+  coord_flip() +                               # 轉橫向，長清單比較好讀
+  scale_fill_manual(values = c("#1f78b4", "#33a02c")) +
+  labs(title = "Cell counts per merged cell type",
+       x = NULL, y = "Number of cells", fill = NULL) +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top",
+        axis.text.y = element_text(size = 9))
 
 
 
+
+################################################################################
 # 可以用合併後的欄位做分組繪圖 (group.by)
 VlnPlot(seurat_obj1, features = c("nFeature_RNA", "nCount_RNA"), group.by = "Cell_Type_Compare_Merged", ncol = 2) +
   ggtitle("seurat_obj1 QC (Merged)")
