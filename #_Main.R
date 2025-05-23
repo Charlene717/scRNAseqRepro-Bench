@@ -81,7 +81,7 @@ seurat_obj2$Cell_Type_Compare_Merged <- seurat_obj2$Cell_Type_Compare_Merged |>
 
 seurat_obj2$Cell_Type_Compare_Merged <- seurat_obj2$Cell_Type_Compare_Merged |>
   str_replace(regex("^Sweat glands$", ignore_case = TRUE),
-              "Sweat glands cells")
+              "Sweat gland cells")
 
 
 #### Compare ####
