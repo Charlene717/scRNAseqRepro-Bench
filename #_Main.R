@@ -5,7 +5,6 @@ if(!require('dplyr')) {install.packages('dplyr'); library(dplyr)}
 if(!require('ggplot2')) {install.packages('ggplot2'); library(ggplot2)}
 
 
-
 #### Load Data ####
 # 1. 讀取兩個 Seurat 物件 --------------------------------------------------
 
@@ -37,16 +36,13 @@ merge_cell_type <- function(vec){
                  paste0(x, "s")))()            # 6. 若結尾不是 s 再補 s
 }
 
-
-# ---------- 2. 套用到 Seurat 物件 ----------
 seurat_obj1$Cell_Type_Compare_Merged <- merge_cell_type(seurat_obj1$Cell_Type_Compare)
 seurat_obj2$Cell_Type_Compare_Merged <- merge_cell_type(seurat_obj2$Cell_Type_Compare)
 
 
 
-library(stringr)
-
 # ── 專門統一 Keratinocytes / Fibroblasts ────────────────────
+library(stringr)
 std_kera_fibro <- function(vec){
   vec |>
     str_replace(regex(".*keratinocytes?$", TRUE), "Keratinocytes") |>
@@ -55,6 +51,7 @@ std_kera_fibro <- function(vec){
 
 seurat_obj1$Cell_Type_Compare_Merged <- std_kera_fibro(seurat_obj1$Cell_Type_Compare_Merged)
 seurat_obj2$Cell_Type_Compare_Merged <- std_kera_fibro(seurat_obj2$Cell_Type_Compare_Merged)
+
 
 #### Compare ####
 # 3. 檢視新的合併欄位 --------------------------------------------------------
@@ -70,6 +67,7 @@ table2_merged <- seurat_obj2@meta.data %>%
 
 print(table1_merged)
 print(table2_merged)
+
 
 # 4. 後續可視化 --------------------------------------------------------------
 # 可以用合併後的欄位做分組繪圖 (group.by)
