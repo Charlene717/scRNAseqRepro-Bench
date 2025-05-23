@@ -1,7 +1,9 @@
-# 載入所需套件
-library(Seurat)
-library(dplyr)
-library(ggplot2)
+
+#### Load Packages ####
+if(!require('Seurat')) {install.packages('Seurat'); library(Seurat)}
+if(!require('dplyr')) {install.packages('dplyr'); library(dplyr)}
+if(!require('ggplot2')) {install.packages('ggplot2'); library(ggplot2)}
+
 
 # 1. 讀取兩個 Seurat 物件 --------------------------------------------------
 
