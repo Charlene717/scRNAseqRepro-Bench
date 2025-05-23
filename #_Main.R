@@ -17,8 +17,10 @@ if(!require('dplyr')) {install.packages('dplyr'); library(dplyr)}
 if(!require('ggplot2')) {install.packages('ggplot2'); library(ggplot2)}
 
 #### Set parameter ####
-Name_Seurat_obj1 <- "Keloid_Charlene"
-Name_Seurat_obj2 <- "Keloid_Jojie"
+Name_Seurat_obj1 <- "Keloid_Charlene"      # 物件 1 名稱
+Name_Seurat_obj2 <- "Keloid_Jojie"         # 物件 2 名稱
+Color_Seurat_obj1  <- "#1f78b4"            # 物件 1 顏色
+Color_Seurat_obj2  <- "#33a02c"            # 物件 2 顏色
 
 #### Load Data ####
 # 路徑一 (2025051906YDG.rds)

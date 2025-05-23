@@ -19,10 +19,10 @@ suppressPackageStartupMessages({
 })
 
 # ---------- 可調參數 ----------
-obj1_name <- "Object1"        # 物件 1 名稱
-obj2_name <- "Object2"        # 物件 2 名稱
-obj1_col  <- "#1f78b4"        # 物件 1 顏色
-obj2_col  <- "#33a02c"        # 物件 2 顏色
+Name_Seurat_obj1 <- "Keloid_Charlene"      # 物件 1 名稱
+Name_Seurat_obj2 <- "Keloid_Jojie"         # 物件 2 名稱
+Color_Seurat_obj1  <- "#1f78b4"            # 物件 1 顏色
+Color_Seurat_obj2  <- "#33a02c"            # 物件 2 顏色
 outdir    <- "Venn_output"    # 所有結果輸出的資料夾
 dir.create(outdir, showWarnings = FALSE, recursive = TRUE)
 
@@ -49,10 +49,10 @@ markers2 <- get_markers(seurat_obj2, "Cell_Type_Compare_Merged")
 
 # → 1-A. 直接存檔（完整 DEG 結果）
 write.csv(markers1,
-          file = file.path(outdir, paste0(obj1_name, "_DEG_markers.csv")),
+          file = file.path(outdir, paste0(Name_Seurat_obj1, "_DEG_markers.csv")),
           row.names = FALSE)
 write.csv(markers2,
-          file = file.path(outdir, paste0(obj2_name, "_DEG_markers.csv")),
+          file = file.path(outdir, paste0(Name_Seurat_obj2, "_DEG_markers.csv")),
           row.names = FALSE)
 
 # ---------- 2. 組 marker gene list ----------
@@ -88,20 +88,20 @@ venn_plots <- lapply(common_ct, function(ct){
   
   # --- B. 存文字檔 ---
   writeLines(only_a_g,
-             file.path(outdir, sprintf("%s_%s_only.txt", safe_ct, obj1_name)))
+             file.path(outdir, sprintf("%s_%s_only.txt", safe_ct, Name_Seurat_obj1)))
   writeLines(inter_g,
              file.path(outdir, sprintf("%s_Intersection.txt", safe_ct)))
   writeLines(only_b_g,
-             file.path(outdir, sprintf("%s_%s_only.txt", safe_ct, obj2_name)))
+             file.path(outdir, sprintf("%s_%s_only.txt", safe_ct, Name_Seurat_obj2)))
   
   # --- C. 畫 Venn + 存 PNG ---
   total_pop <- length(union(genes_a, genes_b))
   venn.plot <- venn.diagram(
     x              = setNames(list(genes_a, genes_b),
-                              c(obj1_name, obj2_name)),
+                              c(Name_Seurat_obj1, Name_Seurat_obj2)),
     filename       = NULL,
-    category.names = c(obj1_name, obj2_name),
-    fill           = c(obj1_col, obj2_col),
+    category.names = c(Name_Seurat_obj1, Name_Seurat_obj2),
+    fill           = c(Color_Seurat_obj1, Color_Seurat_obj2),
     alpha          = 0.60,
     cex            = 1.2,
     cat.cex        = 1,
