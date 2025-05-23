@@ -72,6 +72,22 @@ merge_cell_type <- function(vec){
 seurat_obj1$Cell_Type_Compare_Merged <- merge_cell_type(seurat_obj1$Cell_Type_Compare)
 seurat_obj2$Cell_Type_Compare_Merged <- merge_cell_type(seurat_obj2$Cell_Type_Compare)
 
+
+
+library(stringr)
+
+# ── 專門統一 Keratinocytes / Fibroblasts ────────────────────
+std_kera_fibro <- function(vec){
+  case_when(
+    str_ends(vec, regex("keratinocytes$", ignore_case = TRUE)) ~ "Keratinocytes",
+    str_ends(vec, regex("fibroblasts$",  ignore_case = TRUE)) ~ "Fibroblasts",
+    TRUE ~ vec
+  )
+}
+
+seurat_obj1$Cell_Type_Compare_Merged <- std_kera_fibro(seurat_obj1$Cell_Type_Compare_Merged)
+seurat_obj2$Cell_Type_Compare_Merged <- std_kera_fibro(seurat_obj2$Cell_Type_Compare_Merged)
+
 #### Compare ####
 # 3. 檢視新的合併欄位 --------------------------------------------------------
 # 查看新的合併後子群分布
