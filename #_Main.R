@@ -80,46 +80,59 @@ print(table2_merged)
 
 
 #### Visualization ####
-# 載入工具
+# ── 載入工具 ──────────────────────────────────────────────
 library(dplyr)
-library(tidyr)   # pivot_longer 用
+library(tidyr)
 library(ggplot2)
 
-plot_df <- full_join(table1_merged, table2_merged,
-                     by = "Cell_Type_Compare_Merged",
-                     suffix = c("_obj1", "_obj2")) |>
-  replace_na(list(CellCount_obj1 = 0,
-                  CellCount_obj2 = 0)) |>
-  pivot_longer(cols = starts_with("CellCount"),
-               names_to  = "Object",
-               values_to = "CellCount") |>
-  mutate(Object = recode(Object,
-                         "CellCount_obj1" = "Seurat obj1",
-                         "CellCount_obj2" = "Seurat obj2"))
+# ── 自訂繪圖函式 ──────────────────────────────────────────
+plot_cell_counts <- function(table1, table2,
+                             name1   = "Seurat obj1",
+                             name2   = "Seurat obj2",
+                             title   = "Cell counts per merged cell type",
+                             palette = c("#1f78b4", "#33a02c")) {
+  
+  # 1. 合併 & 整理資料
+  plot_df <- full_join(table1, table2,
+                       by = "Cell_Type_Compare_Merged",
+                       suffix = c("_obj1", "_obj2")) |>
+    replace_na(list(CellCount_obj1 = 0,
+                    CellCount_obj2 = 0)) |>
+    pivot_longer(cols = starts_with("CellCount"),
+                 names_to  = "Object",
+                 values_to = "CellCount") |>
+    mutate(Object = recode(Object,
+                           "CellCount_obj1" = name1,
+                           "CellCount_obj2" = name2)) |>
+    group_by(Cell_Type_Compare_Merged) |>
+    mutate(Total = sum(CellCount)) |>
+    ungroup() |>
+    arrange(desc(Total)) |>
+    mutate(Cell_Type_Compare_Merged =
+             factor(Cell_Type_Compare_Merged,
+                    levels = unique(Cell_Type_Compare_Merged)))
+  
+  # 2. 畫圖
+  ggplot(plot_df,
+         aes(x = Cell_Type_Compare_Merged,
+             y = CellCount,
+             fill = Object)) +
+    geom_col(position = "dodge") +
+    coord_flip() +
+    scale_fill_manual(values = palette) +
+    labs(title = title,
+         x = NULL, y = "Number of cells", fill = NULL) +
+    theme_minimal(base_size = 12) +
+    theme(legend.position = "top",
+          axis.text.y = element_text(size = 9))
+}
 
-# 依總細胞數排序
-plot_df <- plot_df |>
-  group_by(Cell_Type_Compare_Merged) |>
-  mutate(Total = sum(CellCount)) |>
-  ungroup() |>
-  arrange(desc(Total)) |>
-  mutate(Cell_Type_Compare_Merged =
-           factor(Cell_Type_Compare_Merged,
-                  levels = unique(Cell_Type_Compare_Merged)))
-
-# 畫分組條形圖
-ggplot(plot_df,
-       aes(x = Cell_Type_Compare_Merged,
-           y = CellCount,
-           fill = Object)) +
-  geom_col(position = "dodge") +
-  coord_flip() +                               # 轉橫向，長清單比較好讀
-  scale_fill_manual(values = c("#1f78b4", "#33a02c")) +
-  labs(title = "Cell counts per merged cell type",
-       x = NULL, y = "Number of cells", fill = NULL) +
-  theme_minimal(base_size = 12) +
-  theme(legend.position = "top",
-        axis.text.y = element_text(size = 9))
+# ── 範例呼叫 ───────────────────────────────────────────────
+# 假設 table1_merged 來自 seurat_obj1，table2_merged 來自 seurat_obj2
+plot_cell_counts(table1_merged, table2_merged,
+                 name1 = "Project A",      # 自訂顯示名稱
+                 name2 = "Project B",
+                 title = "Merged cell-type counts: Project A vs Project B")
 
 
 
