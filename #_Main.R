@@ -79,8 +79,8 @@ library(stringr)
 # ── 專門統一 Keratinocytes / Fibroblasts ────────────────────
 std_kera_fibro <- function(vec){
   case_when(
-    str_ends(vec, regex("keratinocytes$", ignore_case = TRUE)) ~ "Keratinocytes",
-    str_ends(vec, regex("fibroblasts$",  ignore_case = TRUE)) ~ "Fibroblasts",
+    str_detect(vec, regex("keratinocytes$", ignore_case = TRUE)) ~ "Keratinocytes",
+    str_detect(vec, regex("fibroblasts$",  ignore_case = TRUE)) ~ "Fibroblasts",
     TRUE ~ vec
   )
 }
