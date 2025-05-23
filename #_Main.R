@@ -18,8 +18,6 @@ if(!require('ggplot2')) {install.packages('ggplot2'); library(ggplot2)}
 
 
 #### Load Data ####
-# 1. 讀取兩個 Seurat 物件 --------------------------------------------------
-
 # 路徑一 (2025051906YDG.rds)
 seurat_obj1 <- readRDS("C:/Charlene/Code_GitHub_BioInport2025/KGD_CellTypeAnnot_Skin/Export_2025051906YDG_Keloid_Charlene_2Step_RefComb_IntHarmony/2025051906YDG.rds")
 # seurat_obj1 <- readRDS("C:/Charlene/Code_GitHub_BioInport2025/KGD_Lab_Code_scRNA-seq_Ch/Export_2025051707YXL_Keloid_For_Reproduction/2025051707YXL_seuratObject_Sample_seurat.rds")
@@ -66,7 +64,6 @@ seurat_obj2$Cell_Type_Compare_Merged <- std_kera_fibro(seurat_obj2$Cell_Type_Com
 
 
 #### Compare ####
-# 3. 檢視新的合併欄位 --------------------------------------------------------
 # 查看新的合併後子群分布
 unique(seurat_obj1$Cell_Type_Compare_Merged)
 unique(seurat_obj2$Cell_Type_Compare_Merged)
@@ -81,7 +78,11 @@ print(table1_merged)
 print(table2_merged)
 
 
-# 4. 後續可視化 --------------------------------------------------------------
+
+#### Visualization ####
+
+
+
 # 可以用合併後的欄位做分組繪圖 (group.by)
 VlnPlot(seurat_obj1, features = c("nFeature_RNA", "nCount_RNA"), group.by = "Cell_Type_Compare_Merged", ncol = 2) +
   ggtitle("seurat_obj1 QC (Merged)")
