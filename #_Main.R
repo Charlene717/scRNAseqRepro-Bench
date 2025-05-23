@@ -55,15 +55,14 @@ seurat_obj2$Cell_Type_Compare <- Idents(seurat_obj2)
 # 請先載入所需套件
 library(stringr)
 
-# ---------- 1. 建立清理函式 ----------
 merge_cell_type <- function(vec){
   vec |>
-    # 去掉尾端的「_ / - / 無」+ 數字，例如 _1、-02、3
-    str_remove("([_-]?\\d+)$") |>
-    str_trim() |>                 # 去除多餘空白
-    str_to_lower() |>             # 先全部變小寫
-    { str_replace(., "^([a-z])", toupper) }   # 再把第一個字母變大寫
+    str_remove("([_-]?\\d+)$") |>  # 刪掉可能存在的連接符＋數字
+    str_trim() |>                  # 去空白
+    str_to_lower() |>              # 先全變小寫
+    str_to_sentence()              # 只把第一個字母變大寫
 }
+
 
 # ---------- 2. 套用到 Seurat 物件 ----------
 seurat_obj1$Cell_Type_Compare_Merged <- merge_cell_type(seurat_obj1$Cell_Type_Compare)
