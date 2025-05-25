@@ -4,6 +4,8 @@
 # -[]TopN gene 模式
 # -[]Object名稱設定
 
+# -[]只有一邊有也要顯示
+
 # -[]Fig legend
 
 # -[]根據樣本種類對cell type做DEG
