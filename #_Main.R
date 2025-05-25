@@ -167,7 +167,7 @@ VlnPlot(seurat_obj1, features = c("nFeature_RNA", "nCount_RNA"), group.by = "Cel
 VlnPlot(seurat_obj2, features = c("nFeature_RNA", "nCount_RNA"), group.by = "Cell_Type_Compare_Merged", ncol = 2) +
   ggtitle("seurat_obj2 QC (Merged)")
 
-DimPlot(seurat_obj1, reduction = "umap", group.by = "Cell_Type_Compare_Merged") +
+DimPlot(seurat_obj1, reduction = "umap", group.by = "Cell_Type_Compare_Merged", label = T) +
   ggtitle("UMAP - seurat_obj1 (Merged)")
-DimPlot(seurat_obj2, reduction = "umap", group.by = "Cell_Type_Compare_Merged") +
+DimPlot(seurat_obj2, reduction = "umap", group.by = "Cell_Type_Compare_Merged", label = T) +
   ggtitle("UMAP - seurat_obj2 (Merged)")
