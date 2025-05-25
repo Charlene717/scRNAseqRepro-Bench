@@ -156,7 +156,7 @@ plot_cell_counts <- function(table1, table2,
 plot_cell_counts(table1_merged, table2_merged,
                  name1 = Name_Seurat_obj1,      # 自訂顯示名稱
                  name2 = Name_Seurat_obj2,
-                 title = paste0("cell-type counts: ", Name_Seurat_obj1, "vs" ,Name_Seurat_obj2) 
+                 title = paste0("cell-type counts: ", Name_Seurat_obj1, " vs " ,Name_Seurat_obj2) 
 )
 
 
