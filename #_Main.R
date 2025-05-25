@@ -171,3 +171,11 @@ DimPlot(seurat_obj1, reduction = "umap", group.by = "Cell_Type_Compare_Merged", 
   ggtitle( paste0( "UMAP - ", Name_Seurat_obj1))
 DimPlot(seurat_obj2, reduction = "umap", group.by = "Cell_Type_Compare_Merged", label = T) +
   ggtitle( paste0( "UMAP - ", Name_Seurat_obj2))
+
+## Add Plot
+DimPlot(seurat_obj1, reduction = "umap", group.by = "BroadCellTypeAnnot_SeuratClusters", label = T)
+DimPlot(seurat_obj1, reduction = "umap", group.by = "skin_group", label = T)
+
+DimPlot(seurat_obj2, reduction = "umap", group.by = "Cell_Type_KGD", label = T)
+DimPlot(seurat_obj2, reduction = "umap", group.by = "orig.ident1", label = T)
+
