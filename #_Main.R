@@ -168,6 +168,6 @@ VlnPlot(seurat_obj2, features = c("nFeature_RNA", "nCount_RNA"), group.by = "Cel
   ggtitle("seurat_obj2 QC (Merged)")
 
 DimPlot(seurat_obj1, reduction = "umap", group.by = "Cell_Type_Compare_Merged", label = T) +
-  ggtitle("UMAP - seurat_obj1 (Merged)")
+  ggtitle( paste0( "UMAP - ", Name_Seurat_obj1))
 DimPlot(seurat_obj2, reduction = "umap", group.by = "Cell_Type_Compare_Merged", label = T) +
-  ggtitle("UMAP - seurat_obj2 (Merged)")
+  ggtitle( paste0( "UMAP - ", Name_Seurat_obj2))
