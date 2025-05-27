@@ -107,3 +107,29 @@ bubble_compare(seurat_subset1, seurat_subset2,
                name1        = Name_Seurat_obj1,
                name2        = Name_Seurat_obj2)
 
+bubble_compare(
+  seurat_obj1,
+  seurat_obj2,
+  genes        = c(
+    "PHLDA3",
+    "NRXN1",
+    "CCN2",
+    "MPZ",
+    "PTN",
+    "S100B",   # 許旺細胞經典 Ca2+ 結合蛋白
+    "NGFR",    # p75^NTR，未成熟/修復型 Schwann cell 標誌
+    "NES",     # Nestin，去分化/修復型上調
+    "IGFBP5",  # 促纖維化分泌因子
+    "IGFBP3",  # 調節生長因子結合蛋白
+    "CCN3",    # NOV，細胞通訊網絡因子3
+    "TNFAIP6", # TSG-6，調節炎症與基質
+    "COL1A1",  # I 型膠原
+    "COL3A1"   # III 型膠原
+  ),
+  celltype_col = "Cell_Type_Compare_Merged",
+  # add_col      = "skin_group",   # <─ 新增第二欄
+  combine      = FALSE,           # <─ 預設 TRUE，貼在一起
+  name1        = Name_Seurat_obj1,
+  name2        = Name_Seurat_obj2
+)
+
