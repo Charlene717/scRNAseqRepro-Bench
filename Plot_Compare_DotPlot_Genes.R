@@ -1,4 +1,4 @@
-# ── 載入套件（同前） ───────────────────────────────────────
+# ── 載入套件 ───────────────────────────────────────
 if(!require('Seurat')) {install.packages('Seurat'); library(Seurat)}
 if(!require('dplyr')) {install.packages('dplyr'); library(dplyr)}
 if(!require('tidyr')) {install.packages('tidyr'); library(tidyr)}
