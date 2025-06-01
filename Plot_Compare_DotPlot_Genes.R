@@ -1,8 +1,9 @@
 # ── 載入套件（同前） ───────────────────────────────────────
-library(Seurat)
-library(dplyr)
-library(tidyr)
-library(ggplot2)
+if(!require('Seurat')) {install.packages('Seurat'); library(Seurat)}
+if(!require('dplyr')) {install.packages('dplyr'); library(dplyr)}
+if(!require('tidyr')) {install.packages('tidyr'); library(tidyr)}
+if(!require('ggplot2')) {install.packages('ggplot2'); library(ggplot2)}
+
 
 # ── 1. 建立 dotplot 數據 (單一 Seurat) ─────────────────────
 prep_dot_data <- function(seu, genes,
