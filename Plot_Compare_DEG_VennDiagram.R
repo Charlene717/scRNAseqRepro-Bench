@@ -20,6 +20,11 @@ suppressPackageStartupMessages({
   library(gridExtra)
 })
 
+if(!require('Seurat')) {install.packages('Seurat'); library(Seurat)}
+if(!require('dplyr')) {install.packages('dplyr'); library(dplyr)}
+if(!require('VennDiagram')) {install.packages('VennDiagram'); library(VennDiagram)}
+if(!require('gridExtra')) {install.packages('gridExtra'); library(gridExtra)}
+
 # ---------- 可調參數 ----------
 Name_Seurat_obj1 <- "Keloid_Charlene"      # 物件 1 名稱
 Name_Seurat_obj2 <- "Keloid_Jojie"         # 物件 2 名稱
